@@ -18,7 +18,7 @@ type phonebook interface {
 	GetUserIDByPhone(phone string) (uint32, error)
 }
 
-type ourService struct {
+type birthdayService struct {
 	repo birthdaysRepo
 	pb   phonebook
 }
@@ -28,14 +28,14 @@ type OurService interface {
 	GetBirthdayByID(userID uint32) (time.Time, error)
 }
 
-func NewService(repo birthdaysRepo, pb phonebook) OurService {
-	return &ourService{
+func NewBirthdayService(repo birthdaysRepo, pb phonebook) OurService {
+	return &birthdayService{
 		repo: repo,
 		pb:   pb,
 	}
 }
 
-func (s *ourService) GetBirthdayByPhone(phone string) (time.Time, error) {
+func (s *birthdayService) GetBirthdayByPhone(phone string) (time.Time, error) {
 	userID, err := s.pb.GetUserIDByPhone(phone)
 	if err != nil {
 		return time.Time{}, errNoPhone
@@ -47,7 +47,7 @@ func (s *ourService) GetBirthdayByPhone(phone string) (time.Time, error) {
 	return birthday, nil
 }
 
-func (s *ourService) GetBirthdayByID(userID uint32) (time.Time, error) {
+func (s *birthdayService) GetBirthdayByID(userID uint32) (time.Time, error) {
 	birthday, err := s.repo.GetBirthdayByID(userID)
 
 	if err != nil {

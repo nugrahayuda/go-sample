@@ -21,7 +21,7 @@ func TestOurService_GetBirthdayByPhone(t *testing.T) {
 	birthdaysRepoMock := mock.NewMockbirthdaysRepo(ctrl)
 	phonebookMock := mock.NewMockphonebook(ctrl)
 
-	ourService := NewService(birthdaysRepoMock, phonebookMock)
+	ourService := NewBirthdayService(birthdaysRepoMock, phonebookMock)
 
 	var birthday = time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)
 
