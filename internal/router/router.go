@@ -2,13 +2,12 @@ package router
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-func Init() {
+func (s *Service) Init() {
 	// create a new router
 	r := NewRouter()
 
@@ -19,39 +18,12 @@ func Init() {
 	r.HandleFunc("/", rootHandler)
 
 	r.AddRoute(Route{
-		Path: "/post",
-		Handler: func(w http.ResponseWriter, r *http.Request) {
-			// Read the request body
-			body, err := io.ReadAll(r.Body)
-			if err != nil {
-				http.Error(w, "Failed to read request body", http.StatusBadRequest)
-				return
-			}
-
-			// Process the request body
-			// TODO: Add your logic here
-
-			// Send a response
-			fmt.Fprintln(w, "This is a POST request!")
-			fmt.Fprintln(w, string(body))
-		},
-		Method: "POST",
+		Path:    "/get/{id}",
+		Handler: s.GetUserByID,
+		Method:  "GET",
 	})
 
-	//add get route
-	r.AddRoute(Route{
-		Path: "/get",
-		Handler: func(w http.ResponseWriter, r *http.Request) {
-			// Process the request body
-			// TODO: Add your logic here
-
-			// Send a response
-			fmt.Fprintln(w, "This is a GET request!")
-		},
-		Method: "GET",
-	})
-
-	err := http.ListenAndServe(":8000", r)
+	err := http.ListenAndServe(":9000", r)
 	if err != nil {
 		fmt.Printf("Failed to start server: %v\n", err)
 	}

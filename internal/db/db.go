@@ -28,7 +28,6 @@ func Init() (*sql.DB, error) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(config)
 	DBCon, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
 		config.DBUser,
 		config.DBPassword,

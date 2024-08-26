@@ -2,20 +2,35 @@ package service
 
 import "integrationtests/internal/repo"
 
-
 type userService struct {
 	repo repo.RepoUser
 }
 
-func (s *userService) GetService (id uint32) (repo.UserData, error) {
-	data, err := s.repo.GetUserByID(id)
-    if err != nil {
-        return data, err
-    }
-
-    return data, nil
+type UserService interface {
+	GetUserByID(id string) (repo.UserData, error)
+	CreateUser(id string) (bool, error)
+	DeleteUser(id string) (bool, error)
 }
 
-func NewUserService(repo repo.RepoUser) *userService {
-    return &userService{repo: repo}
+// CreateUser implements UserService.
+func (s *userService) CreateUser(id string) (bool, error) {
+	panic("unimplemented")
+}
+
+// DeleteUser implements UserService.
+func (s *userService) DeleteUser(id string) (bool, error) {
+	panic("unimplemented")
+}
+
+func (s *userService) GetUserByID(id string) (repo.UserData, error) {
+	data, err := s.repo.GetUserByID(id)
+	if err != nil {
+		return data, err
+	}
+
+	return data, nil
+}
+
+func NewUserService(repo repo.RepoUser) UserService {
+	return &userService{repo: repo}
 }

@@ -7,9 +7,9 @@ import (
 )
 
 type RepoUser interface {
-	Create(userID uint32) (bool, error)
-	Delete(userID uint32) (bool, error)
-	GetUserByID(userID uint32) (UserData, error)
+	Create(userID string) (bool, error)
+	Delete(userID string) (bool, error)
+	GetUserByID(userID string) (UserData, error)
 }
 
 type repoUser struct {
@@ -30,17 +30,17 @@ func NewRepoUser(db *sql.DB) RepoUser {
 }
 
 // Implements the RepoUser interface
-func (r *repoUser) Create(userID uint32) (bool, error) {
+func (r *repoUser) Create(userID string) (bool, error) {
 	// Implementation
 	return false, nil
 }
 
-func (r *repoUser) Delete(userID uint32) (bool, error) {
+func (r *repoUser) Delete(userID string) (bool, error) {
 	// Implementation
 	return false, nil
 }
 
-func (r *repoUser) GetUserByID(userID uint32) (UserData, error) {
+func (r *repoUser) GetUserByID(userID string) (UserData, error) {
 	// Create query to get user by ID
 	var user UserData
 
