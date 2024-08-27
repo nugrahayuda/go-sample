@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"integrationtests/internal/service"
 	"net/http"
@@ -25,9 +26,10 @@ func (s *Service) GetUserByID(w http.ResponseWriter, r *http.Request) {
 
 	if e != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "Error getting user: %v\n", e)
+		json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Error getting user: %v", e)})
 		return
 	}
 
-	fmt.Fprintf(w, "User: %+v\n", data)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(data)
 }

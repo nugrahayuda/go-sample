@@ -17,12 +17,12 @@ type repoUser struct {
 }
 
 type UserData struct {
-	id          uint32
-	name        string
-	role        string
-	status      string
-	birthday    time.Time
-	phoneNumber string
+	Id          uint32    `json:"id"`
+	Name        string    `json:"name"`
+	Role        string    `json:"role"`
+	Status      string    `json:"status"`
+	Birthday    time.Time `json:"birthday"`
+	PhoneNumber string    `json:"phoneNumber"`
 }
 
 func NewRepoUser(db *sql.DB) RepoUser {
@@ -45,7 +45,7 @@ func (r *repoUser) GetUserByID(userID string) (UserData, error) {
 	var user UserData
 
 	query := "SELECT id, name, role_id, is_active, birthday, phone_number FROM user WHERE id = ?"
-	err := r.db.QueryRow(query, userID).Scan(&user.id, &user.name, &user.role, &user.status, &user.birthday, &user.phoneNumber)
+	err := r.db.QueryRow(query, userID).Scan(&user.Id, &user.Name, &user.Role, &user.Status, &user.Birthday, &user.PhoneNumber)
 	if err == sql.ErrNoRows {
 		return user, fmt.Errorf("user not found")
 	} else if err != nil {
