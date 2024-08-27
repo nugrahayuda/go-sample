@@ -23,7 +23,7 @@ func (s *Service) Init() {
 		Method:  "GET",
 	})
 
-	err := http.ListenAndServe(":9000", r)
+	err := http.ListenAndServe(":8000", r)
 	if err != nil {
 		fmt.Printf("Failed to start server: %v\n", err)
 	}

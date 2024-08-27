@@ -28,12 +28,13 @@ func Init() (*sql.DB, error) {
 		log.Fatal(err)
 	}
 
-	DBCon, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+	DBCon, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s%s",
 		config.DBUser,
 		config.DBPassword,
 		config.DBHost,
 		config.DBPort,
 		config.DBName,
+		"?parseTime=true",
 	))
 	if err != nil {
 		log.Fatal(err)

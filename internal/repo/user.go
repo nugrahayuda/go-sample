@@ -44,7 +44,7 @@ func (r *repoUser) GetUserByID(userID string) (UserData, error) {
 	// Create query to get user by ID
 	var user UserData
 
-	query := "SELECT name, role, status, birthday, phone_number FROM users WHERE id = ?"
+	query := "SELECT id, name, role_id, is_active, birthday, phone_number FROM user WHERE id = ?"
 	err := r.db.QueryRow(query, userID).Scan(&user.id, &user.name, &user.role, &user.status, &user.birthday, &user.phoneNumber)
 	if err == sql.ErrNoRows {
 		return user, fmt.Errorf("user not found")
