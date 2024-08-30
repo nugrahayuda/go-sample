@@ -1,6 +1,6 @@
 package service
 
-import "integrationtests/internal/repo"
+import "integrationtests/internal/adapter/repository/postgre"
 
 //go:generate mockgen -source=user.go -debug
 

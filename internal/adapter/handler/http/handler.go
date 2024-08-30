@@ -1,10 +1,11 @@
-package router
+package handler
 
 import (
 	"encoding/json"
 	"fmt"
-	"integrationtests/internal/service"
+	"integrationtests/internal/usecase/service"
 	"net/http"
+
 
 	"github.com/gorilla/mux"
 )

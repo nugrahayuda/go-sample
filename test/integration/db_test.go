@@ -1,7 +1,7 @@
 package db_test
 
 import (
-	"integrationtests/internal/db"
+	"integrationtests/internal/adapter/repository/postgre/db"
 	"testing"
 )
 
