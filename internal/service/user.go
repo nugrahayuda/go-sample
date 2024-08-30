@@ -2,6 +2,8 @@ package service
 
 import "integrationtests/internal/repo"
 
+//go:generate mockgen -source=user.go -debug
+
 type userService struct {
 	repo repo.RepoUser
 }

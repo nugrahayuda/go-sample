@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type Service struct {
+type Handler struct {
 	UserService service.UserService
 }
 
@@ -17,7 +17,11 @@ type UserHandler interface {
 	GetUserByID(w http.ResponseWriter, r *http.Request)
 }
 
-func (s *Service) GetUserByID(w http.ResponseWriter, r *http.Request) {
+type Service struct {
+	UserService service.UserService
+}
+
+func (s Service) GetUserByID(w http.ResponseWriter, r *http.Request) {
 	// handle user get request
 	vars := mux.Vars(r)
 	w.WriteHeader(http.StatusOK)

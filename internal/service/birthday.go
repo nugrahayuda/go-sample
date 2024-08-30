@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//go:generate mockgen -source=service.go -destination=mock/service.go
+//go:generate mockgen -source=birthday.go -destination=mock/birthday.go 
 
 var errNoPhone = errors.New("no phone")
 var errNoBirthday = errors.New("no birthday")
@@ -23,12 +23,12 @@ type birthdayService struct {
 	pb   phonebook
 }
 
-type OurService interface {
+type BirthdayService interface {
 	GetBirthdayByPhone(phone string) (time.Time, error)
 	GetBirthdayByID(userID uint32) (time.Time, error)
 }
 
-func NewBirthdayService(repo birthdaysRepo, pb phonebook) OurService {
+func NewBirthdayService(repo birthdaysRepo, pb phonebook) BirthdayService {
 	return &birthdayService{
 		repo: repo,
 		pb:   pb,
