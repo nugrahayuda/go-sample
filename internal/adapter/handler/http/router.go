@@ -7,6 +7,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var port = "8000"
+
 func (s *Service) Init() {
 	// create a new router
 	r := NewRouter()
@@ -23,7 +25,8 @@ func (s *Service) Init() {
 		Method:  "GET",
 	})
 
-	err := http.ListenAndServe(":8000", r)
+	fmt.Printf("Starting service at http://localhost:%s", port)
+	err := http.ListenAndServe(":"+port, r)
 	if err != nil {
 		fmt.Printf("Failed to start server: %v\n", err)
 	}
