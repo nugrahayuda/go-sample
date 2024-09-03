@@ -9,7 +9,7 @@ import (
 
 var port = "8000"
 
-func (s *Service) Init() {
+func (h UserHandler) Init() {
 	// create a new router
 	r := NewRouter()
 
@@ -21,7 +21,7 @@ func (s *Service) Init() {
 
 	r.AddRoute(Route{
 		Path:    "/get/{id}",
-		Handler: s.GetUserByID,
+		Handler: h.GetUserByID,
 		Method:  "GET",
 	})
 

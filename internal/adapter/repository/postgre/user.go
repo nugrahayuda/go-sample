@@ -1,32 +1,18 @@
-package repo
+package repository
 
 import (
 	"database/sql"
 	"fmt"
-	"time"
+	"integrationtests/internal/domain/model"
+	"integrationtests/internal/domain/repository"
 )
 
-type RepoUser interface {
-	Create(userID string) (bool, error)
-	Delete(userID string) (bool, error)
-	GetUserByID(userID string) (UserData, error)
+func NewRepoUser(db *sql.DB) repository.UserRepository  {
+	return &repoUser{db: db}
 }
 
 type repoUser struct {
 	db *sql.DB
-}
-
-type UserData struct {
-	Id          uint32    `json:"id"`
-	Name        string    `json:"name"`
-	Role        string    `json:"role"`
-	Status      string    `json:"status"`
-	Birthday    time.Time `json:"birthday"`
-	PhoneNumber string    `json:"phoneNumber"`
-}
-
-func NewRepoUser(db *sql.DB) RepoUser {
-	return &repoUser{db: db}
 }
 
 // Implements the RepoUser interface
@@ -40,9 +26,9 @@ func (r *repoUser) Delete(userID string) (bool, error) {
 	return false, nil
 }
 
-func (r *repoUser) GetUserByID(userID string) (UserData, error) {
+func (r *repoUser) GetUserByID(userID string) (model.UserData, error) {
 	// Create query to get user by ID
-	var user UserData
+	var user model.UserData
 
 	query := "SELECT id, name, role_id, is_active, birthday, phone_number FROM user WHERE id = ?"
 	err := r.db.QueryRow(query, userID).Scan(&user.Id, &user.Name, &user.Role, &user.Status, &user.Birthday, &user.PhoneNumber)

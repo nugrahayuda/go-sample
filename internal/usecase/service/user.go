@@ -1,30 +1,27 @@
 package service
 
-import "integrationtests/internal/adapter/repository/postgre"
+import (
+	"integrationtests/internal/domain/model"
+	"integrationtests/internal/domain/repository"
+)
 
 //go:generate mockgen -source=user.go -debug
 
-type userService struct {
-	repo repo.RepoUser
-}
-
-type UserService interface {
-	GetUserByID(id string) (repo.UserData, error)
-	CreateUser(id string) (bool, error)
-	DeleteUser(id string) (bool, error)
+type UserService struct {
+	repo repository.UserRepository
 }
 
 // CreateUser implements UserService.
-func (s *userService) CreateUser(id string) (bool, error) {
+func (s *UserService) CreateUser(id string) (bool, error) {
 	panic("unimplemented")
 }
 
 // DeleteUser implements UserService.
-func (s *userService) DeleteUser(id string) (bool, error) {
+func (s *UserService) DeleteUser(id string) (bool, error) {
 	panic("unimplemented")
 }
 
-func (s *userService) GetUserByID(id string) (repo.UserData, error) {
+func (s *UserService) GetUserByID(id string) (model.UserData, error) {
 	data, err := s.repo.GetUserByID(id)
 	if err != nil {
 		return data, err
@@ -33,6 +30,6 @@ func (s *userService) GetUserByID(id string) (repo.UserData, error) {
 	return data, nil
 }
 
-func NewUserService(repo repo.RepoUser) UserService {
-	return &userService{repo: repo}
+func NewUserService(repo repository.UserRepository) *UserService {
+	return &UserService{repo: repo}
 }

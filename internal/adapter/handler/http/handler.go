@@ -6,28 +6,19 @@ import (
 	"integrationtests/internal/usecase/service"
 	"net/http"
 
-
 	"github.com/gorilla/mux"
 )
 
-type Handler struct {
+type UserHandler struct {
 	UserService service.UserService
 }
 
-type UserHandler interface {
-	GetUserByID(w http.ResponseWriter, r *http.Request)
-}
-
-type Service struct {
-	UserService service.UserService
-}
-
-func (s Service) GetUserByID(w http.ResponseWriter, r *http.Request) {
+func (h UserHandler) GetUserByID(w http.ResponseWriter, r *http.Request) {
 	// handle user get request
 	vars := mux.Vars(r)
 	w.WriteHeader(http.StatusOK)
 	id := vars["id"]
-	data, e := s.UserService.GetUserByID(id)
+	data, e := h.UserService.GetUserByID(id)
 
 	if e != nil {
 		w.WriteHeader(http.StatusInternalServerError)

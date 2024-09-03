@@ -2,8 +2,8 @@ package main
 
 import (
 	handler "integrationtests/internal/adapter/handler/http"
+	repository "integrationtests/internal/adapter/repository/postgre"
 	"integrationtests/internal/adapter/repository/postgre/db"
-	"integrationtests/internal/adapter/repository/postgre"
 	"integrationtests/internal/usecase/service"
 )
 
@@ -15,15 +15,15 @@ func main() {
 	}
 
 	//Initialize repository
-	repoUser := repo.NewRepoUser(db)
+	ur := repository.NewRepoUser(db)
 
 	// Initialize service
-	userService := service.NewUserService(repoUser)
+	us := service.NewUserService(ur)
 
-	handler := &handler.Service{
+	uh := &handler.UserHandler{
 		// initialize any dependencies here
-		UserService: userService,
+		UserService: *us,
 	}
 
-	handler.Init()
+	uh.Init()
 }
