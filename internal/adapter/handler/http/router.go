@@ -25,7 +25,16 @@ func (s *Service) Init() {
 		Method:  "GET",
 	})
 
-	fmt.Printf("Starting service at http://localhost:%s", port)
+	fmt.Printf(`
+##     ##  ##     ##  ######     ####   
+ ##   ##   ##     ##  ##   ##   ##  ##  
+  ## ##    ##     ##  ##    ## ##    ## 
+   ###     ##     ##  ##    ## ######## 
+   ###     ##     ##  ##    ## ##    ## 
+   ###      ##   ##   ##   ##  ##    ## 
+   ###       #####    ######   ##    ## 
+`)
+	fmt.Printf("Starting service at http://localhost:%s ......", port)
 	err := http.ListenAndServe(":"+port, r)
 	if err != nil {
 		fmt.Printf("Failed to start server: %v\n", err)
