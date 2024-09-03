@@ -67,7 +67,7 @@ func Init() (*sql.DB, error) {
 // loadConfig loads the configuration from a YAML file
 func loadConfig() (*Config, error) {
 	// Open the YAML file
-	file, err := os.Open("../config.yaml")
+	file, err := os.Open("config/config.yaml")
 	if err != nil {
 		return nil, err
 	}
