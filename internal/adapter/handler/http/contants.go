@@ -10,5 +10,5 @@ const (
    ###      ##   ##   ##   ##   ##    ## 
    ###       #####    ######    ##    ## 
 `
-	ServerRunningMessageBody = "Starting service at http://localhost:%s ......"
+	ServerRunningMessageBody = "Starting service at http://localhost:%s ...... \n"
 )
