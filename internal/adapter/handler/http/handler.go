@@ -3,14 +3,18 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"integrationtests/internal/usecase/service"
+	"integrationtests/internal/domain/model"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 type UserHandler struct {
-	UserService service.UserService
+	UserService UserServiceInterface
+}
+
+type UserServiceInterface interface {
+	GetUserByID(id string) (model.UserData, error)
 }
 
 func (h UserHandler) GetUserByID(w http.ResponseWriter, r *http.Request) {

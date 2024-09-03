@@ -9,20 +9,21 @@ import (
 
 func main() {
 
+	// Initialize database connection
 	db, err := db.Init()
 	if err != nil {
 		panic(err)
 	}
 
 	//Initialize repository
-	ur := repository.NewRepoUser(db)
+	ur := repository.NewUserRepository(db)
 
 	// Initialize service
 	us := service.NewUserService(ur)
 
 	uh := &handler.UserHandler{
 		// initialize any dependencies here
-		UserService: *us,
+		UserService: us,
 	}
 
 	uh.Init()

@@ -8,7 +8,11 @@ import (
 //go:generate mockgen -source=user.go -debug
 
 type UserService struct {
-	repo repository.UserRepository
+	repo repository.UserRepositoryInterface
+}
+
+func NewUserService(repo repository.UserRepositoryInterface) *UserService {
+	return &UserService{repo: repo}
 }
 
 // CreateUser implements UserService.
@@ -28,8 +32,4 @@ func (s *UserService) GetUserByID(id string) (model.UserData, error) {
 	}
 
 	return data, nil
-}
-
-func NewUserService(repo repository.UserRepository) *UserService {
-	return &UserService{repo: repo}
 }

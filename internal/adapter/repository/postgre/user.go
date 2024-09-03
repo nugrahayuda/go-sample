@@ -7,26 +7,26 @@ import (
 	"integrationtests/internal/domain/repository"
 )
 
-func NewRepoUser(db *sql.DB) repository.UserRepository  {
-	return &repoUser{db: db}
-}
-
-type repoUser struct {
+type userRepository struct {
 	db *sql.DB
 }
 
+func NewUserRepository(db *sql.DB) repository.UserRepositoryInterface {
+	return &userRepository{db: db}
+}
+
 // Implements the RepoUser interface
-func (r *repoUser) Create(userID string) (bool, error) {
+func (r *userRepository) Create(userID string) (bool, error) {
 	// Implementation
 	return false, nil
 }
 
-func (r *repoUser) Delete(userID string) (bool, error) {
+func (r *userRepository) Delete(userID string) (bool, error) {
 	// Implementation
 	return false, nil
 }
 
-func (r *repoUser) GetUserByID(userID string) (model.UserData, error) {
+func (r *userRepository) GetUserByID(userID string) (model.UserData, error) {
 	// Create query to get user by ID
 	var user model.UserData
 
