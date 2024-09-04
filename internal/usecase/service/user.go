@@ -5,8 +5,6 @@ import (
 	"integrationtests/internal/domain/repository"
 )
 
-//go:generate mockgen -source=user.go -debug
-
 type UserService struct {
 	repo repository.UserRepositoryInterface
 }
