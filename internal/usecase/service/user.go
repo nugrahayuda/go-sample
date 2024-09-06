@@ -1,6 +1,8 @@
 package service
 
 import (
+	"context"
+	"integrationtests/internal/adapter/repository/postgre/db"
 	"integrationtests/internal/domain/model"
 	"integrationtests/internal/domain/repository"
 )
@@ -14,8 +16,17 @@ func NewUserService(repo repository.UserRepositoryInterface) *UserService {
 }
 
 // CreateUser implements UserService.
-func (s *UserService) CreateUser(id string) (bool, error) {
-	panic("unimplemented")
+func (s *UserService) CreateUser(id string) (error) {
+	ctx := context.Background()
+	tx := db.DBCon.WithContext(ctx).Begin()
+	defer tx.Rollback()
+
+	err := s.repo.Create(tx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // DeleteUser implements UserService.
