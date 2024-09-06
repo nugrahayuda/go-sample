@@ -64,10 +64,10 @@ func (mr *MockUserRepositoryInterfaceMockRecorder) Delete(userID interface{}) *g
 }
 
 // GetUserByID mocks base method
-func (m *MockUserRepositoryInterface) GetUserByID(userID string) (model.UserData, error) {
+func (m *MockUserRepositoryInterface) GetUserByID(userID string) (model.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUserByID", userID)
-	ret0, _ := ret[0].(model.UserData)
+	ret0, _ := ret[0].(model.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

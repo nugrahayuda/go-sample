@@ -1,17 +1,18 @@
 package repository
 
 import (
-	"database/sql"
 	"fmt"
 	"integrationtests/internal/domain/model"
 	"integrationtests/internal/domain/repository"
+
+	"gorm.io/gorm"
 )
 
 type userRepository struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func NewUserRepository(db *sql.DB) repository.UserRepositoryInterface {
+func NewUserRepository(db *gorm.DB) repository.UserRepositoryInterface {
 	return &userRepository{db: db}
 }
 
@@ -26,15 +27,16 @@ func (r *userRepository) Delete(userID string) (bool, error) {
 	return false, nil
 }
 
-func (r *userRepository) GetUserByID(userID string) (model.UserData, error) {
-	// Create query to get user by ID
-	var user model.UserData
+func (r *userRepository) GetUserByID(userID string) (model.User, error) {
+	// Create an instance to hold the result
+	var user model.User
 
-	query := "SELECT id, name, role_id, is_active, birthday, phone_number FROM user WHERE id = ?"
-	err := r.db.QueryRow(query, userID).Scan(&user.Id, &user.Name, &user.Role, &user.Status, &user.Birthday, &user.PhoneNumber)
-	if err == sql.ErrNoRows {
-		return user, fmt.Errorf("user not found")
-	} else if err != nil {
+	// Use GORM to retrieve the user by ID
+	err := r.db.Where("id = ?", userID).First(&user).Error
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return user, fmt.Errorf("user not found")
+		}
 		return user, err
 	}
 

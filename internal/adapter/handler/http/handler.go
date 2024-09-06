@@ -14,7 +14,7 @@ type UserHandler struct {
 }
 
 type UserServiceInterface interface {
-	GetUserByID(id string) (model.UserData, error)
+	GetUserByID(id string) (model.User, error)
 }
 
 func (h UserHandler) GetUserByID(w http.ResponseWriter, r *http.Request) {

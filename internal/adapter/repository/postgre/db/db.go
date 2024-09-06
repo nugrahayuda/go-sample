@@ -10,16 +10,19 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"gopkg.in/yaml.v2"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var (
 	// DBCon is the connection handle
 	// for the database
-	DBCon *sql.DB
+	DBCon *gorm.DB
+	SqlDB *sql.DB
 )
 
 // Connect connects to the database
-func Init() (*sql.DB, error) {
+func Init() (*gorm.DB, error) {
 	var err error
 
 	// Load configuration from YAML file
@@ -28,25 +31,33 @@ func Init() (*sql.DB, error) {
 		log.Fatal(err)
 	}
 
-	DBCon, err = sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s%s",
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
 		config.DBUser,
 		config.DBPassword,
 		config.DBHost,
 		config.DBPort,
 		config.DBName,
-		"?parseTime=true",
-	))
+	)
+
+	DBCon, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	sqlDB, err := DBCon.DB()
+	if err != nil {
+		log.Fatal("Failed to ping database:", err)
 	}
 
 	// Retry mechanism
 	retries := 3
 	for retries > 0 {
-		err = DBCon.Ping()
+
+		err = sqlDB.Ping()
 		if err == nil {
 			break
 		}
+
 		log.Printf("Failed to connect to the database. Retrying in 5 seconds...")
 		time.Sleep(5 * time.Second)
 		retries--
@@ -56,10 +67,10 @@ func Init() (*sql.DB, error) {
 		log.Fatal(err)
 	}
 
-	// Set database connection pool parameters
-	DBCon.SetMaxOpenConns(25)
-	DBCon.SetMaxIdleConns(25)
-	DBCon.SetConnMaxLifetime(5 * 60) // 5 minutes
+	// // Set database connection pool parameters
+	sqlDB.SetMaxOpenConns(25)
+	sqlDB.SetMaxIdleConns(25)
+	sqlDB.SetConnMaxLifetime(5 * 60) // 5 minutes
 
 	return DBCon, err
 }
@@ -69,6 +80,7 @@ func loadConfig() (*Config, error) {
 	// Open the YAML file
 	file, err := os.Open("config/config.yaml")
 	if err != nil {
+		log.Fatal("Fatal config", err)
 		return nil, err
 	}
 	defer file.Close()
@@ -94,5 +106,5 @@ type Config struct {
 
 // Close closes the database connection
 func Close() {
-	DBCon.Close()
+	SqlDB.Close()
 }

@@ -23,7 +23,7 @@ func (s *UserService) DeleteUser(id string) (bool, error) {
 	panic("unimplemented")
 }
 
-func (s *UserService) GetUserByID(id string) (model.UserData, error) {
+func (s *UserService) GetUserByID(id string) (model.User, error) {
 	data, err := s.repo.GetUserByID(id)
 	if err != nil {
 		return data, err

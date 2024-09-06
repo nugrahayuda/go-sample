@@ -7,7 +7,7 @@ import (
 
 func Connected() bool {
 	// Implement the logic to check if connected to the database
-	err := db.DBCon.Ping()
+	err := db.SqlDB.Ping()
 	return err == nil
 }
 
