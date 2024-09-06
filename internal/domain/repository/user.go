@@ -10,7 +10,7 @@ import (
 //
 //go:generate mockgen -source=internal/domain/repository/user.go -destination=test/unit/mock/user.go -package=mock_repository_user
 type UserRepositoryInterface interface {
-	Create(tx *gorm.DB, userID string) (error)
+	CreateUser(tx *gorm.DB, user model.User) error
 	Delete(userID string) (bool, error)
 	GetUserByID(userID string) (model.User, error)
 }

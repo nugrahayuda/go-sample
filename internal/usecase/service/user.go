@@ -16,12 +16,12 @@ func NewUserService(repo repository.UserRepositoryInterface) *UserService {
 }
 
 // CreateUser implements UserService.
-func (s *UserService) CreateUser(id string) (error) {
+func (s *UserService) CreateUser(user model.User) error {
 	ctx := context.Background()
 	tx := db.DBCon.WithContext(ctx).Begin()
 	defer tx.Rollback()
 
-	err := s.repo.Create(tx, id)
+	err := s.repo.CreateUser(tx, user)
 	if err != nil {
 		return err
 	}

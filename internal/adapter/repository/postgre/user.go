@@ -17,9 +17,11 @@ func NewUserRepository(db *gorm.DB) repository.UserRepositoryInterface {
 }
 
 // Implements the RepoUser interface
-func (r *userRepository) Create(tx *gorm.DB, userID string) error {
-	// Implementation
-	return nil
+func (r *userRepository) CreateUser(tx *gorm.DB, user model.User) error {
+	var ur model.User
+
+	err := tx.Create(&ur).Error
+	return err
 }
 
 func (r *userRepository) Delete(userID string) (bool, error) {
