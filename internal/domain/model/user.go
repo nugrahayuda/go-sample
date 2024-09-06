@@ -3,8 +3,8 @@ package model
 type User struct {
 	Id          uint32 `json:"id"`
 	Name        string `json:"name"`
-	Role        string `json:"role"`
-	Status      string `json:"status"`
+	RoleId      string `json:"role"`
+	IsActive    string `json:"status"`
 	Birthday    string `json:"birthday"`
 	PhoneNumber string `json:"phoneNumber"`
 }
