@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"integrationtests/internal/domain/model"
 	"log"
 	"os"
 	"time"
@@ -65,6 +66,8 @@ func Init() (*gorm.DB, error) {
 	sqlDB.SetMaxOpenConns(25)
 	sqlDB.SetMaxIdleConns(25)
 	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+
+	DBCon.AutoMigrate(model.User{})
 
 	return DBCon, nil
 }
