@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"integrationtests/internal/domain/model"
+	"go-sample/internal/domain/model"
 	"net/http"
 
 	"github.com/gorilla/mux"

@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"integrationtests/internal/adapter/repository/mysql/db"
-	"integrationtests/internal/domain/model"
-	"integrationtests/internal/domain/repository"
+	"go-sample/internal/adapter/repository/mysql/db"
+	"go-sample/internal/domain/model"
+	"go-sample/internal/domain/repository"
 )
 
 type UserService struct {

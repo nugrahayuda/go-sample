@@ -2,8 +2,8 @@ package repository
 
 import (
 	"fmt"
-	"integrationtests/internal/domain/model"
-	"integrationtests/internal/domain/repository"
+	"go-sample/internal/domain/model"
+	"go-sample/internal/domain/repository"
 
 	"gorm.io/gorm"
 )

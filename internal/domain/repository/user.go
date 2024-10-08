@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"integrationtests/internal/domain/model"
+	"go-sample/internal/domain/model"
 
 	"gorm.io/gorm"
 )

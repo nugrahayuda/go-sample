@@ -6,7 +6,7 @@ package mock_repository_user
 
 import (
 	gomock "github.com/golang/mock/gomock"
-	model "integrationtests/internal/domain/model"
+	model "go-sample/internal/domain/model"
 	reflect "reflect"
 )
 

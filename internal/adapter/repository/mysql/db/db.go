@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"integrationtests/internal/domain/model"
+	"go-sample/internal/domain/model"
 	"log"
 	"os"
 	"time"
