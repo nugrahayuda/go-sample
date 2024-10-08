@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	"integrationtests/internal/adapter/repository/postgre/db"
+	"integrationtests/internal/adapter/repository/mysql/db"
 	"integrationtests/internal/domain/model"
 	"integrationtests/internal/domain/repository"
 )

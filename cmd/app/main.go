@@ -2,8 +2,8 @@ package main
 
 import (
 	handler "integrationtests/internal/adapter/handler/http"
-	repository "integrationtests/internal/adapter/repository/postgre"
-	"integrationtests/internal/adapter/repository/postgre/db"
+	repository "integrationtests/internal/adapter/repository/mysql"
+	"integrationtests/internal/adapter/repository/mysql/db"
 	"integrationtests/internal/usecase/service"
 )
 
