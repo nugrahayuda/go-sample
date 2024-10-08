@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0          # Specify the MySQL version (8.0 in this case)
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: password  # Root password (for administrative access)
+      MYSQL_USER: user                # db_user
+      MYSQL_PASSWORD: password         # db_password
+      MYSQL_DATABASE: user_db          # db_name
+    ports:
+      - "3306:3306"             # Mapping port 3306 on localhost to 3306 in the container (MySQL default port)
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistent data storage for MySQL
+    command: --default-authentication-plugin=mysql_native_password # Ensures compatibility with older MySQL clients
+
+volumes:
+  mysql_data:
+    driver: local
